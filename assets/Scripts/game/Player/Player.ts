@@ -1,5 +1,5 @@
 import ITick from "../../iTick";
-import {loader,Node,instantiate,find,Prefab,Scene} from "cc";
+import {loader,Node,instantiate,find,Prefab,Scene,PhysicsRayResult,PhysicsSystem} from "cc";
 import Core from "../../Core/Core";
 import GH from "../../GH";
 import PlayerMove from "./PlayerControl/PlayerMove";
@@ -35,5 +35,12 @@ export default class Player implements ITick
         this.m_stRotate.Update();
         GH.BattleData.TurnX = 0;
         GH.BattleData.TurnY = 0;
+        if(PhysicsSystem.instance.raycastClosest(GH.CameraMgr.Ray))
+        {
+            let boo = find("sssss");
+            console.log(PhysicsSystem.instance.raycastClosestResult.collider.node.name);
+            boo.setPosition(PhysicsSystem.instance.raycastClosestResult.hitPoint);
+        }
+        GH.CameraMgr.SetRay();
     }
 }
