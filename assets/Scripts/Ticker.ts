@@ -1,4 +1,7 @@
 import ITick from "../Scripts/iTick";
+import GH from "./GH";
+import Core from "./Core/Core";
+import {EventID} from "./Core/Define";
 
 export default class Ticker
 {
@@ -118,17 +121,22 @@ export default class Ticker
             tick.Tick(this.m_iTickCount);
         }
         ++this.m_iTickCount;
-        if(this.m_iTickCount % 20 == 0) this.PrintTickerDetail();
+        if(this.m_iTickCount % 80 == 0)
+        {
+            this.PrintTickerDetail();
+        }
     }
 
     public PrintTickerDetail(): void
     {
         let sDetail: string = "Ticker::";
-        let iLength = this.m_arrFixTickList.length;
-        sDetail += "\n" + "每一帧执行：FixedTickList:lenght:" + iLength;
-        for(let tick of this.m_arrFixTickList)
+        let iLength = this.m_arrTickList.length;
+        sDetail += "\n" + "每一帧执行：TickList:lenght:" + iLength;
+        for(let tick of this.m_arrTickList)
         {
             sDetail += "\n    " + tick;
         }
+        sDetail += "\n    帧率为" + this.m_iCurrentFPS;
+        console.log(sDetail);
     }
 }

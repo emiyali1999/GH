@@ -1,5 +1,7 @@
-import {find,Node,Vec3,view,geometry,CameraComponent,UITransformComponent,View} from "cc";
+import {find,Node,Vec3,view,geometry,CameraComponent,UITransformComponent,View,Tween,tween} from "cc";
 import GH from "../../GH";
+import Core from "../../Core/Core";
+import {EventID} from "../../Core/Define";
 const {ray} = geometry;
 
 export default class CameraMgr 
@@ -17,6 +19,12 @@ export default class CameraMgr
         this.m_stCamera = find("Camera");
         this.m_cameraCom = this.m_stCamera.getComponent(CameraComponent);
         this.m_ray = new ray();
+        this.BindEvent();
+    }
+
+    private BindEvent(): void
+    {
+        Core.EventMgr.BindEvent(EventID.BattleEffectEvent.CAMERA_SHAKE,this.Shake,this);
     }
 
     public get Player(): Node
@@ -33,11 +41,10 @@ export default class CameraMgr
         if(!this.Player) return;
         let v3: Vec3 = new Vec3();
         v3.x = this.Player.position.x;
-        v3.y = this.Player.position.y + 5;
-        v3.z = this.Player.position.z - 6;
+        v3.y = this.Player.position.y;
+        v3.z = this.Player.position.z;
         this.m_stCamera.position = v3;
         this.m_stPlayer.addChild(this.m_stCamera);
-        this.m_stCamera.lookAt(this.Player.position);
     }
 
     public get Ray(): geometry.ray
@@ -48,5 +55,17 @@ export default class CameraMgr
     public SetRay(): void
     {
         this.m_cameraCom.screenPointToRay(view.getCanvasSize().width / 2,view.getCanvasSize().height / 2,this.m_ray);
+    }
+
+    public Shake(): void
+    {
+        let v3: Vec3 = new Vec3();
+        v3.x = this.Player.position.x;
+        v3.y = this.Player.position.y;
+        v3.z = this.Player.position.z;
+        tween(this.m_stCamera).to(1 / 20,{position: new Vec3(0.1,0.1,0)})
+            .to(1 / 20,{position: new Vec3(-0.1,0.1,0)})
+            .to(1 / 20,{position: new Vec3(0.1,-0.1,0)})
+            .to(1 / 20,{position: new Vec3(-0.1,-0.1,0)}).start();
     }
 }

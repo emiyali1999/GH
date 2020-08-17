@@ -17,6 +17,7 @@ export default class Player implements ITick
         loader.loadRes("Prefabs/Player/Player",Prefab,(err: any,prefab: Prefab) =>
         {
             this.m_stPlayer = instantiate(prefab);
+            this.m_stPlayer.setPosition(this.m_stRootNode.position);
             this.m_stRootNode.addChild(this.m_stPlayer);
         });
         Core.Ticker.AddTick(this);
@@ -35,10 +36,9 @@ export default class Player implements ITick
         this.m_stRotate.Update();
         GH.BattleData.TurnX = 0;
         GH.BattleData.TurnY = 0;
-        if(PhysicsSystem.instance.raycastClosest(GH.CameraMgr.Ray))
+        if(PhysicsSystem.instance.raycastClosest(GH.CameraMgr.Ray,0xffffffff,30))
         {
             let boo = find("sssss");
-            console.log(PhysicsSystem.instance.raycastClosestResult.collider.node.name);
             boo.setPosition(PhysicsSystem.instance.raycastClosestResult.hitPoint);
         }
         GH.CameraMgr.SetRay();
