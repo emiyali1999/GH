@@ -1,3 +1,6 @@
+import Backpack from "./Backpack";
+import {Commodity} from "../../../Core/Define";
+
 export class PlayerData
 {
     //生命值和能量
@@ -9,7 +12,7 @@ export class PlayerData
     public vitamin: number;
     public fat: number;
     //背包
-    public
+    private m_stBackpack: Backpack;
 
     constructor()
     {
@@ -19,5 +22,12 @@ export class PlayerData
         this.water = 100;
         this.vitamin = 100;
         this.fat = 100;
+        this.m_stBackpack = new Backpack();
+    }
+
+    private GetThing(inf: Commodity): void
+    {
+        if(!inf) return;
+        this.m_stBackpack.GetThing(inf);
     }
 }
