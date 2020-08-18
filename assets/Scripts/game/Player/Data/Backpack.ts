@@ -1,6 +1,8 @@
 import {LinkList} from "../../../util/LinkList";
 import {Commodity} from "../../../Core/Define"
 import IBackpack from "../../../interface/IBackpack"
+import Core from "../../../Core/Core";
+import {CoreEventID} from "../../../Core/CoreEventID";
 
 export default class Backpack
 {
@@ -15,6 +17,12 @@ export default class Backpack
         this.m_stEquipment = new Equipment();
         this.m_stMaterials = new Materials();
         this.m_stOther = new Other();
+        this.BindEvent();
+    }
+
+    private BindEvent(): void
+    {
+        Core.EventMgr.BindEvent(CoreEventID.LogEvent.PRINT_BACKPACK,this.PrintBackpack,this);
     }
 
     public GetThing(thing: Commodity): void
@@ -31,10 +39,18 @@ export default class Backpack
             case CommodityType.Materials:
                 this.m_stMaterials.addThing(thing);
                 break;
-            case CommodityType.Consumables:
+            case CommodityType.Other:
                 this.m_stOther.addThing(thing);
                 break;
+            default:
+                console.log("物品类型错误!!!");
         }
+    }
+
+    private PrintBackpack(): void
+    {
+        console.log(this.m_stConsumables.m_list.Size(),this.m_stEquipment.m_list.Size(),this.m_stMaterials.m_list.Size(),this.m_stOther.m_list.Size());
+        console.log(this.m_stConsumables.m_list,this.m_stEquipment.m_list,this.m_stMaterials.m_list,this.m_stOther.m_list);
     }
 }
 
@@ -43,20 +59,28 @@ class Consumables implements IBackpack
     public m_list: LinkList<Commodity>;
     constructor()
     {
-        this.m_list = new LinkList();
+        this.m_list = new LinkList<Commodity>();
     }
 
     public addThing(thing: Commodity)
     {
+        let target: Commodity = null;
         this.m_list.ForEach((value) =>
         {
             if(thing.id == value.id)
             {
-                value.number += thing.number;
-                return;
+                target = value;
             }
         });
-        this.m_list.Append(thing);
+        if(!target)
+        {
+            this.m_list.Append(thing);
+        }
+        else
+        {
+            let newthing = new Commodity(target.id,target.type,target.number + thing.number);
+            this.m_list.Change(target,newthing);
+        }
     }
 }
 
@@ -70,15 +94,23 @@ class Equipment implements IBackpack
 
     public addThing(thing: Commodity)
     {
+        let target: Commodity = null;
         this.m_list.ForEach((value) =>
         {
             if(thing.id == value.id)
             {
-                value.number += thing.number;
-                return;
+                target = value;
             }
         });
-        this.m_list.Append(thing);
+        if(!target)
+        {
+            this.m_list.Append(thing);
+        }
+        else
+        {
+            let newthing = new Commodity(target.id,target.type,target.number + thing.number);
+            this.m_list.Change(target,newthing);
+        }
     }
 }
 
@@ -92,15 +124,23 @@ class Materials implements IBackpack
 
     public addThing(thing: Commodity)
     {
+        let target: Commodity = null;
         this.m_list.ForEach((value) =>
         {
             if(thing.id == value.id)
             {
-                value.number += thing.number;
-                return;
+                target = value;
             }
         });
-        this.m_list.Append(thing);
+        if(!target)
+        {
+            this.m_list.Append(thing);
+        }
+        else
+        {
+            let newthing = new Commodity(target.id,target.type,target.number + thing.number);
+            this.m_list.Change(target,newthing);
+        }
     }
 }
 
@@ -114,15 +154,23 @@ class Other implements IBackpack
 
     public addThing(thing: Commodity)
     {
+        let target: Commodity = null;
         this.m_list.ForEach((value) =>
         {
             if(thing.id == value.id)
             {
-                value.number += thing.number;
-                return;
+                target = value;
             }
         });
-        this.m_list.Append(thing);
+        if(!target)
+        {
+            this.m_list.Append(thing);
+        }
+        else
+        {
+            let newthing = new Commodity(target.id,target.type,target.number + thing.number);
+            this.m_list.Change(target,newthing);
+        }
     }
 }
 

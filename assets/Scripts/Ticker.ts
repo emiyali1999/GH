@@ -1,7 +1,7 @@
 import ITick from "../Scripts/iTick";
 import GH from "./GH";
 import Core from "./Core/Core";
-import {EventID} from "./Core/Define";
+import {EventID,Commodity} from "./Core/Define";
 
 export default class Ticker
 {
@@ -124,6 +124,33 @@ export default class Ticker
         if(this.m_iTickCount % 80 == 0)
         {
             this.PrintTickerDetail();
+        }
+        if(this.m_iTickCount == 80)
+        {
+            let things = new Commodity(1,1,1);
+            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
+            things = new Commodity(1,2,2);
+            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
+            things = new Commodity(1,3,3);
+            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
+            things = new Commodity(1,4,4);
+            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
+            things = new Commodity(1,1,1);
+            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
+            things = new Commodity(1,2,1);
+            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
+            things = new Commodity(1,3,1);
+            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
+            things = new Commodity(1,4,1);
+            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
+            things = new Commodity(2,1,1);
+            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
+            things = new Commodity(3,1,1);
+            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
+            things = new Commodity(4,1,1);
+            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
+            things = new Commodity(5,1,1);
+            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
         }
     }
 

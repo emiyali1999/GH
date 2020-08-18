@@ -6,4 +6,8 @@ export class CoreEventID
         return ++CoreEventID.EVENT_ID_BEGAIN;
     }
     //用于游戏内容外UI等部分事件
+    /**打印事件 */
+    public static readonly LogEvent = {
+        PRINT_BACKPACK: CoreEventID.CreateID,
+    }
 }

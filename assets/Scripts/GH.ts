@@ -1,12 +1,14 @@
 import CameraMgr from "./game/Mgr/CameraMgr";
 import Player from "./game/Player/Player";
 import BattleData from "./Data/BattleData";
+import {PlayerData} from "./game/Player/Data/PlayerData";
 export default class GH 
 {
     private static m_pInstance: GH;
     private static m_stPlayer: Player;
     private static m_pCamera: CameraMgr;
     private static m_pBattleData: BattleData;
+    private static m_pPlayerData: PlayerData;
     constructor()
     {
     }
@@ -25,6 +27,7 @@ export default class GH
         GH.m_pCamera = new CameraMgr();
         GH.m_stPlayer = new Player();
         GH.m_pBattleData = new BattleData();
+        GH.m_pPlayerData = new PlayerData();
         GH.CameraMgr.Init();
         GH.CameraMgr.FollowPlayer();
     }
@@ -42,5 +45,10 @@ export default class GH
     public static get BattleData(): BattleData
     {
         return GH.m_pBattleData;
+    }
+
+    public static get PlayerData(): PlayerData
+    {
+        return GH.m_pPlayerData;
     }
 }

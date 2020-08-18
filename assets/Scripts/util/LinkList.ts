@@ -82,6 +82,34 @@ export class LinkList<T>
         return false;
     }
 
+    /**修改指定元素 */
+    public Change(element: T,newelement: T): boolean
+    {
+        if(this.m_iLength > 0)
+        {
+            let current: LinkNode<T>;
+            if(this.m_stHeader.element == element)
+            {
+                this.m_stHeader.element = newelement;
+                return true;
+            }
+            else
+            {
+                current = this.m_stHeader;
+                while(current.next)
+                {
+                    current = current.next;
+                    if(current.element == element)
+                    {
+                        current.element = newelement;
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public ForEach(fnCallback: (value: T) => void): void
     {
         if(this.m_iLength > 0)
