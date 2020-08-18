@@ -1,7 +1,8 @@
 import ITick from "../Scripts/iTick";
 import GH from "./GH";
 import Core from "./Core/Core";
-import {EventID,Commodity} from "./Core/Define";
+import {EventID,CommodityAttributes} from "./Core/Define";
+import {CoreEventID} from "./Core/CoreEventID";
 
 export default class Ticker
 {
@@ -127,29 +128,29 @@ export default class Ticker
         }
         if(this.m_iTickCount == 80)
         {
-            let things = new Commodity(1,1,1);
+            let things = new CommodityAttributes(1,1,1);
             Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new Commodity(1,2,2);
+            things = new CommodityAttributes(1,2,2);
             Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new Commodity(1,3,3);
+            things = new CommodityAttributes(1,3,3);
             Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new Commodity(1,4,4);
+            things = new CommodityAttributes(1,4,4);
             Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new Commodity(1,1,1);
+            things = new CommodityAttributes(1,1,1);
             Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new Commodity(1,2,1);
+            things = new CommodityAttributes(1,2,1);
             Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new Commodity(1,3,1);
+            things = new CommodityAttributes(1,3,1);
             Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new Commodity(1,4,1);
+            things = new CommodityAttributes(1,4,1);
             Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new Commodity(2,1,1);
+            things = new CommodityAttributes(2,1,1);
             Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new Commodity(3,1,1);
+            things = new CommodityAttributes(3,1,1);
             Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new Commodity(4,1,1);
+            things = new CommodityAttributes(4,1,1);
             Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new Commodity(5,1,1);
+            things = new CommodityAttributes(5,1,1);
             Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
         }
     }

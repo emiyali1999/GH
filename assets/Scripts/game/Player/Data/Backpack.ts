@@ -1,5 +1,5 @@
 import {LinkList} from "../../../util/LinkList";
-import {Commodity} from "../../../Core/Define"
+import {CommodityAttributes} from "../../../Core/Define"
 import IBackpack from "../../../interface/IBackpack"
 import Core from "../../../Core/Core";
 import {CoreEventID} from "../../../Core/CoreEventID";
@@ -25,7 +25,7 @@ export default class Backpack
         Core.EventMgr.BindEvent(CoreEventID.LogEvent.PRINT_BACKPACK,this.PrintBackpack,this);
     }
 
-    public GetThing(thing: Commodity): void
+    public GetThing(thing: CommodityAttributes): void
     {
         if(!thing) return;
         switch(thing.type)
@@ -56,15 +56,15 @@ export default class Backpack
 
 class Consumables implements IBackpack
 {
-    public m_list: LinkList<Commodity>;
+    public m_list: LinkList<CommodityAttributes>;
     constructor()
     {
-        this.m_list = new LinkList<Commodity>();
+        this.m_list = new LinkList<CommodityAttributes>();
     }
 
-    public addThing(thing: Commodity)
+    public addThing(thing: CommodityAttributes)
     {
-        let target: Commodity = null;
+        let target: CommodityAttributes = null;
         this.m_list.ForEach((value) =>
         {
             if(thing.id == value.id)
@@ -78,7 +78,7 @@ class Consumables implements IBackpack
         }
         else
         {
-            let newthing = new Commodity(target.id,target.type,target.number + thing.number);
+            let newthing = new CommodityAttributes(target.id,target.type,target.number + thing.number);
             this.m_list.Change(target,newthing);
         }
     }
@@ -86,15 +86,15 @@ class Consumables implements IBackpack
 
 class Equipment implements IBackpack
 {
-    public m_list: LinkList<Commodity>;
+    public m_list: LinkList<CommodityAttributes>;
     constructor()
     {
         this.m_list = new LinkList();
     }
 
-    public addThing(thing: Commodity)
+    public addThing(thing: CommodityAttributes)
     {
-        let target: Commodity = null;
+        let target: CommodityAttributes = null;
         this.m_list.ForEach((value) =>
         {
             if(thing.id == value.id)
@@ -108,7 +108,7 @@ class Equipment implements IBackpack
         }
         else
         {
-            let newthing = new Commodity(target.id,target.type,target.number + thing.number);
+            let newthing = new CommodityAttributes(target.id,target.type,target.number + thing.number);
             this.m_list.Change(target,newthing);
         }
     }
@@ -116,15 +116,15 @@ class Equipment implements IBackpack
 
 class Materials implements IBackpack
 {
-    public m_list: LinkList<Commodity>;
+    public m_list: LinkList<CommodityAttributes>;
     constructor()
     {
         this.m_list = new LinkList();
     }
 
-    public addThing(thing: Commodity)
+    public addThing(thing: CommodityAttributes)
     {
-        let target: Commodity = null;
+        let target: CommodityAttributes = null;
         this.m_list.ForEach((value) =>
         {
             if(thing.id == value.id)
@@ -138,7 +138,7 @@ class Materials implements IBackpack
         }
         else
         {
-            let newthing = new Commodity(target.id,target.type,target.number + thing.number);
+            let newthing = new CommodityAttributes(target.id,target.type,target.number + thing.number);
             this.m_list.Change(target,newthing);
         }
     }
@@ -146,15 +146,15 @@ class Materials implements IBackpack
 
 class Other implements IBackpack
 {
-    public m_list: LinkList<Commodity>;
+    public m_list: LinkList<CommodityAttributes>;
     constructor()
     {
         this.m_list = new LinkList();
     }
 
-    public addThing(thing: Commodity)
+    public addThing(thing: CommodityAttributes)
     {
-        let target: Commodity = null;
+        let target: CommodityAttributes = null;
         this.m_list.ForEach((value) =>
         {
             if(thing.id == value.id)
@@ -168,7 +168,7 @@ class Other implements IBackpack
         }
         else
         {
-            let newthing = new Commodity(target.id,target.type,target.number + thing.number);
+            let newthing = new CommodityAttributes(target.id,target.type,target.number + thing.number);
             this.m_list.Change(target,newthing);
         }
     }

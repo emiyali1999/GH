@@ -1,5 +1,5 @@
 import Backpack from "./Backpack";
-import {Commodity,EventID} from "../../../Core/Define";
+import {CommodityAttributes,EventID} from "../../../Core/Define";
 import Core from "../../../Core/Core";
 
 export class PlayerData
@@ -32,7 +32,7 @@ export class PlayerData
         Core.EventMgr.BindEvent(EventID.CommodityEvent.GET_THINGS,this.GetThings,this);
     }
 
-    private GetThings(inf: Commodity): void
+    private GetThings(inf: CommodityAttributes): void
     {
         if(!inf) return;
         this.m_stBackpack.GetThing(inf);

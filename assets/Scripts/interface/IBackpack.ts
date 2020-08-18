@@ -1,6 +1,6 @@
-import {Commodity} from "../Core/Define"
+import {CommodityAttributes} from "../Core/Define"
 
 export default interface ISmallBackpack
 {
-    addThing(thing: Commodity): void;
+    addThing(thing: CommodityAttributes): void;
 }
