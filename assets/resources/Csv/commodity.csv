@@ -1,4 +1,3 @@
-id,name,type,description
-10001,树果,1,回复2碳水以及1水分
-30001,碎石,3,基础建材，可以用来制作基础工具
-
+id,name,CNname,type,description
+10001,treefruit,树果,1,回复2碳水以及1水分
+30001,smallstone,碎石,3,基础建材，可以用来制作基础工具

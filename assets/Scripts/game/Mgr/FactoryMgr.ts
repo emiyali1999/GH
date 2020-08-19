@@ -1,4 +1,4 @@
-import {_decorator,Component,Node,Prefab,instantiate} from 'cc';
+import {_decorator,Component,Node,Prefab,instantiate, loader} from 'cc';
 
 /**资源加载以及单位生产 */
 export class FactoryMgr
@@ -10,6 +10,19 @@ export class FactoryMgr
     {
         this.m_mapPrefab = new Map<number,Prefab>();
         this.uid = 0;
+        this.LoadCommodityCsv();
+    }
+
+    private LoadCommodityCsv():void
+    {
+        loader.loadRes("Csv/commodity",String,(error,data)=>{
+            this.SetCommodityMap(data);
+        });
+    }
+
+    private SetCommodityMap(csv:String):void
+    {
+        console.log(csv);
     }
 
     public Creater(id: number): Node
