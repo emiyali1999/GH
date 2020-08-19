@@ -47,6 +47,7 @@ export class CommodityAttributes
 export class Commodity extends CommodityAttributes
 {
     public m_stV3: Vec3;
+    public m_node: Node;
     public m_stBlockNumber: OwningBlock;
     constructor(id: number,type: number,number: number,v3: Vec3)
     {
@@ -54,6 +55,7 @@ export class Commodity extends CommodityAttributes
         this.m_stV3 = v3;
         this.m_stBlockNumber.blockx = Math.floor(v3.x / 20);
         this.m_stBlockNumber.blocky = Math.floor(v3.z / 20);
+
     }
 }
 
