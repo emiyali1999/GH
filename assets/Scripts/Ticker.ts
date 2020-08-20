@@ -3,6 +3,7 @@ import GH from "./GH";
 import Core from "./Core/Core";
 import {EventID,CommodityAttributes} from "./Core/Define";
 import {CoreEventID} from "./Core/CoreEventID";
+import {Vec3} from "cc";
 
 export default class Ticker
 {
@@ -126,32 +127,12 @@ export default class Ticker
         {
             this.PrintTickerDetail();
         }
-        if(this.m_iTickCount == 80)
+        if(this.m_iTickCount == 300)
         {
-            let things = new CommodityAttributes(1,1,1);
-            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new CommodityAttributes(1,2,2);
-            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new CommodityAttributes(1,3,3);
-            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new CommodityAttributes(1,4,4);
-            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new CommodityAttributes(1,1,1);
-            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new CommodityAttributes(1,2,1);
-            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new CommodityAttributes(1,3,1);
-            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new CommodityAttributes(1,4,1);
-            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new CommodityAttributes(2,1,1);
-            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new CommodityAttributes(3,1,1);
-            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new CommodityAttributes(4,1,1);
-            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
-            things = new CommodityAttributes(5,1,1);
-            Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,things);
+            let c1 = new Vec3(1,3,1);
+            GH.Factory.Creater(10001,c1);
+            c1 = new Vec3(1,3,-1);
+            GH.Factory.Creater(30001,c1);
         }
     }
 
