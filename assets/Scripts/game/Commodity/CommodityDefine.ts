@@ -23,3 +23,12 @@ export class ActivityCommodity extends Commodity
 {
 
 }
+
+export class CommodityMsg
+{
+    public id: number;
+    public name: string;
+    public CNname: string;
+    public type: number;
+    public description: string;
+}
