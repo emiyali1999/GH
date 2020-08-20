@@ -27,6 +27,8 @@ export class EventID
         CHANGE_BLOCK: EventID.CreateID,
         /**物品掉落 */
         COMMODITY_DOWN: EventID.CreateID,
+        /**玩家指向物品 */
+        POINT_COMMODITY: EventID.CreateID,
     }
 }
 

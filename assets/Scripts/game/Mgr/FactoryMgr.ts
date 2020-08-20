@@ -96,7 +96,7 @@ export class FactoryMgr
         }
         let node = instantiate(this.m_mapPrefab.get(id));
         node.parent = this.m_stCommodityNode;
-        node.name = id.toString() + this.uid.toString();
+        node.name = id.toString() + "_" + this.uid.toString();
         node.setPosition(v3);
         console.log(node);
         this.uid++;
@@ -122,5 +122,11 @@ export class FactoryMgr
             url += this.m_mapComMsg.get(id).type + "/" + this.m_mapComMsg.get(id).name;
             this.LoadCommodityPrefab(id,url,v3);
         }
+    }
+
+    public GetCommodityTips(id: number): string
+    {
+        if(!this.m_mapComMsg.has(id)) return "无该配置";
+        return this.m_mapComMsg.get(id).CNname + ":" + this.m_mapComMsg.get(id).description;
     }
 }

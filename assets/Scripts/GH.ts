@@ -3,6 +3,7 @@ import Player from "./game/Player/Player";
 import BattleData from "./Data/BattleData";
 import {PlayerData} from "./game/Player/Data/PlayerData";
 import {FactoryMgr} from "./game/Mgr/FactoryMgr";
+import {UIMgr} from "./game/Mgr/UIMgr";
 export default class GH 
 {
     private static m_pInstance: GH;
@@ -10,7 +11,8 @@ export default class GH
     private static m_pCamera: CameraMgr;
     private static m_pBattleData: BattleData;
     private static m_pPlayerData: PlayerData;
-    private static m_factory: FactoryMgr;
+    private static m_pFactory: FactoryMgr;
+    private static m_pUI: UIMgr;
     constructor()
     {
     }
@@ -29,8 +31,9 @@ export default class GH
         GH.m_pCamera = new CameraMgr();
         GH.m_stPlayer = new Player();
         GH.m_pBattleData = new BattleData();
-        GH.m_factory = new FactoryMgr();
+        GH.m_pFactory = new FactoryMgr();
         GH.m_pPlayerData = new PlayerData();
+        GH.m_pUI = new UIMgr();
         GH.CameraMgr.Init();
         GH.CameraMgr.FollowPlayer();
     }
@@ -57,6 +60,6 @@ export default class GH
 
     public static get Factory(): FactoryMgr
     {
-        return GH.m_factory;
+        return GH.m_pFactory;
     }
 }

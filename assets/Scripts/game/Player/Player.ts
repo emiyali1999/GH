@@ -4,6 +4,7 @@ import Core from "../../Core/Core";
 import GH from "../../GH";
 import PlayerMove from "./PlayerControl/PlayerMove";
 import PlayerRotate from "./PlayerControl/PlayerRotate";
+import {EventID} from "../../Core/Define";
 
 export default class Player implements ITick
 {
@@ -23,6 +24,12 @@ export default class Player implements ITick
         Core.Ticker.AddTick(this);
         this.m_stMove = new PlayerMove(this.m_stRootNode);
         this.m_stRotate = new PlayerRotate(this.m_stRootNode);
+        this.BindEvent();
+    }
+
+    private BindEvent()
+    {
+        Core.EventMgr.BindEvent(EventID.BattleEvent.POINT_COMMODITY,this.UpdateRedBall,this);
     }
 
     public get Player(): Node
@@ -38,9 +45,19 @@ export default class Player implements ITick
         GH.BattleData.TurnY = 0;
         if(PhysicsSystem.instance.raycastClosest(GH.CameraMgr.Ray,0xffffffff,30))
         {
-            let boo = find("sssss");
-            boo.setPosition(PhysicsSystem.instance.raycastClosestResult.hitPoint);
+            Core.EventMgr.Emit(EventID.BattleEvent.POINT_COMMODITY,PhysicsSystem.instance.raycastClosestResult);
+        }
+        else
+        {
+            Core.EventMgr.Emit(EventID.BattleEvent.POINT_COMMODITY,null);
         }
         GH.CameraMgr.SetRay();
+    }
+
+    private UpdateRedBall(result: PhysicsRayResult): void
+    {
+        if(!result) return;
+        let boo = find("sssss");
+        boo.setPosition(result.hitPoint);
     }
 }
