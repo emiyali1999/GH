@@ -1,5 +1,5 @@
 import {CoreEventID} from "./CoreEventID";
-import {Vec3} from "cc";
+import {Vec3,Node} from "cc";
 
 export class EventID
 {
@@ -26,7 +26,7 @@ export class EventID
         /**玩家切换块 */
         CHANGE_BLOCK: EventID.CreateID,
         /**物品掉落 */
-        COMMODITY_DOWN: EventID.CreateID,
+        COMMODITY_CREATE: EventID.CreateID,
         /**玩家指向物品 */
         POINT_COMMODITY: EventID.CreateID,
     }
@@ -51,13 +51,12 @@ export class Commodity extends CommodityAttributes
     public m_stV3: Vec3;
     public m_node: Node;
     public m_stBlockNumber: OwningBlock;
-    constructor(id: number,type: number,number: number,v3: Vec3)
+    constructor(id: number,type: number,number: number,v3: Vec3,node: Node)
     {
         super(id,type,number);
         this.m_stV3 = v3;
-        this.m_stBlockNumber.blockx = Math.floor(v3.x / 20);
-        this.m_stBlockNumber.blocky = Math.floor(v3.z / 20);
-
+        this.m_stBlockNumber = new OwningBlock(Math.floor(v3.x / 20),Math.floor(v3.y / 20));
+        this.m_node = node;
     }
 }
 

@@ -1,6 +1,9 @@
 import {MapBlock} from "../Map/MapBlock";
 import Core from "../../Core/Core";
-import {Commodity,OwningBlock,EventID,BlockChange} from "../../Core/Define";
+import {Commodity,OwningBlock,EventID,BlockChange,CommodityAttributes} from "../../Core/Define";
+import GH from "../../GH";
+import {Node} from "cc";
+import {CommodityMsg} from "../Commodity/CommodityDefine";
 
 export class MapMessageMgr
 {
@@ -15,7 +18,7 @@ export class MapMessageMgr
     private BindEvent(): void
     {
         Core.EventMgr.BindEvent(EventID.BattleEvent.CHANGE_BLOCK,this.OnChangeBlock,this);
-        Core.EventMgr.BindEvent(EventID.BattleEvent.COMMODITY_DOWN,this.OnCommodityDown,this);
+        Core.EventMgr.BindEvent(EventID.BattleEvent.COMMODITY_CREATE,this.OnCommodityCreate,this);
     }
 
     private OnChangeBlock(inf: BlockChange): void
@@ -23,8 +26,15 @@ export class MapMessageMgr
         this.m_stMapBlock.UpdateCommodityStatus(inf);
     }
 
-    private OnCommodityDown(inf: Commodity): void
+    private OnCommodityCreate(inf: Node): void
     {
         this.m_stMapBlock.AddCommodity(inf);
+    }
+
+    public GetCommodityMsgByName(name: string): CommodityMsg
+    {
+        let rows: Array<string> = name.split('_');
+        let id = Number(rows[0]);
+        return GH.Factory.GetCommodityMsg(id);
     }
 }

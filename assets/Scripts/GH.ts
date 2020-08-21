@@ -4,6 +4,7 @@ import BattleData from "./Data/BattleData";
 import {PlayerData} from "./game/Player/Data/PlayerData";
 import {FactoryMgr} from "./game/Mgr/FactoryMgr";
 import {UIMgr} from "./game/Mgr/UIMgr";
+import {MapMessageMgr} from "./game/Mgr/MapMessageMgr";
 export default class GH 
 {
     private static m_pInstance: GH;
@@ -12,6 +13,7 @@ export default class GH
     private static m_pBattleData: BattleData;
     private static m_pPlayerData: PlayerData;
     private static m_pFactory: FactoryMgr;
+    private static m_pMapMessage: MapMessageMgr;
     private static m_pUI: UIMgr;
     constructor()
     {
@@ -33,6 +35,7 @@ export default class GH
         GH.m_pBattleData = new BattleData();
         GH.m_pFactory = new FactoryMgr();
         GH.m_pPlayerData = new PlayerData();
+        GH.m_pMapMessage = new MapMessageMgr();
         GH.m_pUI = new UIMgr();
         GH.CameraMgr.Init();
         GH.CameraMgr.FollowPlayer();
@@ -61,5 +64,10 @@ export default class GH
     public static get Factory(): FactoryMgr
     {
         return GH.m_pFactory;
+    }
+
+    public static get MapMessage(): MapMessageMgr
+    {
+        return GH.m_pMapMessage;
     }
 }

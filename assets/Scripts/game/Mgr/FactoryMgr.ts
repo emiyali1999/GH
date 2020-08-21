@@ -1,5 +1,8 @@
 import {_decorator,Component,Node,Prefab,instantiate,loader,Vec3,v3,find} from 'cc';
 import {CommodityMsg} from '../Commodity/CommodityDefine';
+import GH from '../../GH';
+import Core from '../../Core/Core';
+import {EventID,CommodityAttributes} from '../../Core/Define';
 
 /**资源加载以及单位生产 */
 export class FactoryMgr
@@ -80,7 +83,6 @@ export class FactoryMgr
                             break;
                     }
                 }
-                console.log(commsg);
                 this.m_mapComMsg.set(commsg.id,commsg);
             }
         }
@@ -88,7 +90,6 @@ export class FactoryMgr
 
     public Creater(id: number,v3: Vec3): Node
     {
-        console.log("有鸡");
         if(!this.m_mapPrefab.has(id))
         {
             this.ResLoad(id,v3);
@@ -98,7 +99,7 @@ export class FactoryMgr
         node.parent = this.m_stCommodityNode;
         node.name = id.toString() + "_" + this.uid.toString();
         node.setPosition(v3);
-        console.log(node);
+        Core.EventMgr.Emit(EventID.BattleEvent.COMMODITY_CREATE,node);
         this.uid++;
         return node;
     }
@@ -118,15 +119,14 @@ export class FactoryMgr
                 return;
             }
             let url: string = "";
-            console.log(id,this.m_mapComMsg.get(id));
             url += this.m_mapComMsg.get(id).type + "/" + this.m_mapComMsg.get(id).name;
             this.LoadCommodityPrefab(id,url,v3);
         }
     }
 
-    public GetCommodityTips(id: number): string
+    public GetCommodityMsg(id: number): CommodityMsg
     {
-        if(!this.m_mapComMsg.has(id)) return "无该配置";
-        return this.m_mapComMsg.get(id).CNname + ":" + this.m_mapComMsg.get(id).description;
+        if(!this.m_mapComMsg.has(id)) return null;
+        return this.m_mapComMsg.get(id);
     }
 }

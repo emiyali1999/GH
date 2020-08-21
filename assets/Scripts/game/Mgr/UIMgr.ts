@@ -28,8 +28,14 @@ export class UIMgr
             return;
         }
         let name = result.collider.node.name;
-        let rows: Array<string> = name.split('_');
-        let id = Number(rows[0]);
-        this.m_stCommodityTip.string = GH.Factory.GetCommodityTips(id);
+        let atb = GH.MapMessage.GetCommodityMsgByName(name);
+        if(!atb)
+        {
+            console.log("无此物品信息");
+        }
+        else
+        {
+            this.m_stCommodityTip.string = GH.Factory.GetCommodityMsg(atb.id).CNname + ":" + GH.Factory.GetCommodityMsg(atb.id).description;
+        }
     }
 }

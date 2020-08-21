@@ -33,7 +33,6 @@ export default class PlayerMove
             let changeBlock = new BlockChange(this.m_stOwningBlock,nowBlock);
             Core.EventMgr.Emit(EventID.BattleEvent.CHANGE_BLOCK,changeBlock);
             this.m_stOwningBlock = nowBlock;
-            console.log(changeBlock);
         }
     }
 }
