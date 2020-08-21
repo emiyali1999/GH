@@ -45,6 +45,7 @@ export default class Backpack
             default:
                 console.log("物品类型错误!!!");
         }
+        this.PrintBackpack();
     }
 
     private PrintBackpack(): void

@@ -99,7 +99,7 @@ export class FactoryMgr
         node.parent = this.m_stCommodityNode;
         node.name = id.toString() + "_" + this.uid.toString();
         node.setPosition(v3);
-        Core.EventMgr.Emit(EventID.BattleEvent.COMMODITY_CREATE,node);
+        Core.EventMgr.Emit(EventID.CommodityEvent.COMMODITY_CREATE,node);
         this.uid++;
         return node;
     }

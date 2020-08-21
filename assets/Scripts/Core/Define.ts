@@ -19,16 +19,18 @@ export class EventID
     public static readonly CommodityEvent = {
         /**获取物品 */
         GET_THINGS: EventID.CreateID,
+        /**物品掉落 */
+        COMMODITY_CREATE: EventID.CreateID,
+        /**物品移除 */
+        COMMODITY_DELETE:EventID.CreateID,
+        /**玩家指向物品 */
+        POINT_COMMODITY: EventID.CreateID,
     }
 
     /**战斗相关 */
     public static readonly BattleEvent = {
         /**玩家切换块 */
         CHANGE_BLOCK: EventID.CreateID,
-        /**物品掉落 */
-        COMMODITY_CREATE: EventID.CreateID,
-        /**玩家指向物品 */
-        POINT_COMMODITY: EventID.CreateID,
     }
 }
 

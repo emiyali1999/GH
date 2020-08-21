@@ -17,7 +17,7 @@ export class UIMgr
 
     private BindEvent(): void
     {
-        Core.EventMgr.BindEvent(EventID.BattleEvent.POINT_COMMODITY,this.ShowCommodityTips,this);
+        Core.EventMgr.BindEvent(EventID.CommodityEvent.POINT_COMMODITY,this.ShowCommodityTips,this);
     }
 
     private ShowCommodityTips(result: PhysicsRayResult): void

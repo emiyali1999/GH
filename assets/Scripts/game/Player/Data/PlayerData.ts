@@ -1,6 +1,7 @@
 import Backpack from "./Backpack";
 import {CommodityAttributes,EventID} from "../../../Core/Define";
 import Core from "../../../Core/Core";
+import GH from "../../../GH";
 
 export class PlayerData
 {
@@ -32,9 +33,11 @@ export class PlayerData
         Core.EventMgr.BindEvent(EventID.CommodityEvent.GET_THINGS,this.GetThings,this);
     }
 
-    private GetThings(inf: CommodityAttributes): void
+    private GetThings(inf: string): void
     {
         if(!inf) return;
-        this.m_stBackpack.GetThing(inf);
+        let msg=GH.MapMessage.GetCommodityMsgByName(inf);
+        let abt:CommodityAttributes=new CommodityAttributes(msg.id,msg.type,1);
+        this.m_stBackpack.GetThing(abt);
     }
 }

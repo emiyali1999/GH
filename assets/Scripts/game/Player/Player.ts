@@ -29,7 +29,7 @@ export default class Player implements ITick
 
     private BindEvent()
     {
-        Core.EventMgr.BindEvent(EventID.BattleEvent.POINT_COMMODITY,this.UpdateRedBall,this);
+        Core.EventMgr.BindEvent(EventID.CommodityEvent.POINT_COMMODITY,this.UpdateRedBall,this);
     }
 
     public get Player(): Node
@@ -41,17 +41,25 @@ export default class Player implements ITick
     {
         this.m_stMove.Update();
         this.m_stRotate.Update();
-        GH.BattleData.TurnX = 0;
-        GH.BattleData.TurnY = 0;
         if(PhysicsSystem.instance.raycastClosest(GH.CameraMgr.Ray,0xffffffff,30))
         {
-            Core.EventMgr.Emit(EventID.BattleEvent.POINT_COMMODITY,PhysicsSystem.instance.raycastClosestResult);
+            Core.EventMgr.Emit(EventID.CommodityEvent.POINT_COMMODITY,PhysicsSystem.instance.raycastClosestResult);
+            if(GH.BattleData.Etouch&&PhysicsSystem.instance.raycastClosestResult.distance<=5)
+            {
+                Core.EventMgr.Emit(EventID.CommodityEvent.COMMODITY_DELETE,PhysicsSystem.instance.raycastClosestResult.collider.node.name);
+                let name=PhysicsSystem.instance.raycastClosestResult.collider.node.name;
+                Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,name);
+            }
         }
         else
         {
-            Core.EventMgr.Emit(EventID.BattleEvent.POINT_COMMODITY,null);
+            Core.EventMgr.Emit(EventID.CommodityEvent.POINT_COMMODITY,null);
         }
         GH.CameraMgr.SetRay();
+        /**清空操作 */
+        GH.BattleData.TurnX = 0;
+        GH.BattleData.TurnY = 0;
+        GH.BattleData.Etouch = false;
     }
 
     private UpdateRedBall(result: PhysicsRayResult): void

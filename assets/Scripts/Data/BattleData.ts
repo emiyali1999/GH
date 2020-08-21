@@ -10,6 +10,7 @@ export default class BattleData
     public TurnX: number;
     public TurnY: number;
     public CameraRot: number;
+    public Etouch:boolean;
 
     constructor()
     {
@@ -21,5 +22,6 @@ export default class BattleData
         this.TurnX = 0;
         this.TurnY = 0;
         this.CameraRot = 0;
+        this.Etouch=false;
     }
 }
