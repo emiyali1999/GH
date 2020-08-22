@@ -36,6 +36,10 @@ export class UIMgr
         else
         {
             this.m_stCommodityTip.string = GH.Factory.GetCommodityMsg(atb.id).CNname + ":" + GH.Factory.GetCommodityMsg(atb.id).description;
+            this.m_stCommodityTip.scheduleOnce(() =>
+            {
+                this.m_stCommodityTip.string = "";
+            },2);
         }
     }
 }
