@@ -22,9 +22,23 @@ export class EventID
         /**物品掉落 */
         COMMODITY_CREATE: EventID.CreateID,
         /**物品移除 */
-        COMMODITY_DELETE:EventID.CreateID,
+        COMMODITY_DELETE: EventID.CreateID,
         /**玩家指向物品 */
         POINT_COMMODITY: EventID.CreateID,
+    }
+
+    /**人物属性变化 */
+    public static readonly PlayerDataEvent = {
+        /**water改变 */
+        WATER_CHANGE: EventID.CreateID,
+        /**fat改变 */
+        FAT_CHANGE: EventID.CreateID,
+        /**vitamin改变 */
+        VITAMIN_CHANGE: EventID.CreateID,
+        /**carbohydrate改变 */
+        CARBOHYDRATE_CHANGE: EventID.CreateID,
+        /**blood改变 */
+        BLOOD_CHANGE: EventID.CreateID,
     }
 
     /**战斗相关 */
@@ -80,6 +94,18 @@ export class BlockChange
     public after: OwningBlock;
 
     constructor(before: OwningBlock,after: OwningBlock)
+    {
+        this.before = before;
+        this.after = after;
+    }
+}
+
+export class PlayerDataChange
+{
+    public before: number;
+    public after: number;
+
+    constructor(before: number,after: number)
     {
         this.before = before;
         this.after = after;
