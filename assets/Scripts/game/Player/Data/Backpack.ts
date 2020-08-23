@@ -1,15 +1,15 @@
 import {LinkList} from "../../../util/LinkList";
 import {CommodityAttributes} from "../../../Core/Define"
-import IBackpack from "../../../interface/IBackpack"
+import ISmallBackpack from "../../../interface/IBackpack"
 import Core from "../../../Core/Core";
 import {CoreEventID} from "../../../Core/CoreEventID";
 
 export default class Backpack
 {
-    private m_stConsumables: Consumables;
-    private m_stEquipment: Equipment;
-    private m_stMaterials: Materials;
-    private m_stOther: Other;
+    public m_stConsumables: Consumables;
+    public m_stEquipment: Equipment;
+    public m_stMaterials: Materials;
+    public m_stOther: Other;
 
     constructor()
     {
@@ -55,7 +55,7 @@ export default class Backpack
     }
 }
 
-class Consumables implements IBackpack
+class Consumables implements ISmallBackpack
 {
     public m_list: LinkList<CommodityAttributes>;
     constructor()
@@ -85,7 +85,7 @@ class Consumables implements IBackpack
     }
 }
 
-class Equipment implements IBackpack
+class Equipment implements ISmallBackpack
 {
     public m_list: LinkList<CommodityAttributes>;
     constructor()
@@ -115,7 +115,7 @@ class Equipment implements IBackpack
     }
 }
 
-class Materials implements IBackpack
+class Materials implements ISmallBackpack
 {
     public m_list: LinkList<CommodityAttributes>;
     constructor()
@@ -145,7 +145,7 @@ class Materials implements IBackpack
     }
 }
 
-class Other implements IBackpack
+class Other implements ISmallBackpack
 {
     public m_list: LinkList<CommodityAttributes>;
     constructor()

@@ -3,16 +3,19 @@ import Core from '../../Core/Core';
 import {EventID} from '../../Core/Define';
 import GH from '../../GH';
 import PlayerDataUI from "../UI/PlayerDataUI";
+import BackpackUI from "../UI/BackpackUI";
 
 export class UIMgr
 {
     private m_stCanvas: Node;
     private m_stCommodityTip: LabelComponent;
     private m_stPlayerDataUI: PlayerDataUI;
+    private m_stBackpackUI: BackpackUI;
 
     constructor()
     {
         this.m_stPlayerDataUI = new PlayerDataUI();
+        this.m_stBackpackUI = new BackpackUI();
         this.m_stCanvas = find("Canvas");
         this.m_stCommodityTip = this.m_stCanvas.getChildByName("CommodityDes").getComponent(LabelComponent);
         this.BindEvent();

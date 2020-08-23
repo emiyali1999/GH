@@ -25,6 +25,8 @@ export class EventID
         COMMODITY_DELETE: EventID.CreateID,
         /**玩家指向物品 */
         POINT_COMMODITY: EventID.CreateID,
+        /**切换背包 */
+        CHANGE_BACKPACK: EventID.CreateID,
     }
 
     /**人物属性变化 */

@@ -36,8 +36,13 @@ export class PlayerData
     private GetThings(inf: string): void
     {
         if(!inf) return;
-        let msg=GH.MapMessage.GetCommodityMsgByName(inf);
-        let abt:CommodityAttributes=new CommodityAttributes(msg.id,msg.type,1);
+        let msg = GH.MapMessage.GetCommodityMsgByName(inf);
+        let abt: CommodityAttributes = new CommodityAttributes(msg.id,msg.type,1);
         this.m_stBackpack.GetThing(abt);
+    }
+
+    public get Backpack(): Backpack
+    {
+        return this.m_stBackpack;
     }
 }
