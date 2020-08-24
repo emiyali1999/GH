@@ -41,6 +41,7 @@ export class MapMessageMgr
     {
         let rows: Array<string> = name.split('_');
         let id = Number(rows[0]);
-        return GH.Factory.GetCommodityMsg(id);
+        let ans = GH.Factory.GetCommodityMsg(id);
+        return ans;
     }
 }
