@@ -27,6 +27,8 @@ export class EventID
         POINT_COMMODITY: EventID.CreateID,
         /**切换背包 */
         CHANGE_BACKPACK: EventID.CreateID,
+        /**打开关闭背包 */
+        OPEN_CLOSE_BACKPACK: EventID.CreateID,
     }
 
     /**人物属性变化 */
@@ -47,6 +49,12 @@ export class EventID
     public static readonly BattleEvent = {
         /**玩家切换块 */
         CHANGE_BLOCK: EventID.CreateID,
+    }
+
+    /**加载事件 */
+    public static readonly LoadEvent = {
+        /**配置表加载成功 */
+        CSV_LOADED: EventID.CreateID,
     }
 }
 

@@ -86,6 +86,7 @@ export class FactoryMgr
                 this.m_mapComMsg.set(commsg.id,commsg);
             }
         }
+        Core.EventMgr.Emit(EventID.LoadEvent.CSV_LOADED,null);
     }
 
     public Creater(id: number,v3: Vec3): Node

@@ -21,6 +21,7 @@
       ],
       "subMetas": {},
       "userData": {
+        "imageUuidOrDatabaseUri": "48ec3687-fc96-48d7-b93c-0a43ef6c080a",
         "wrapModeS": "repeat",
         "wrapModeT": "repeat",
         "minfilter": "linear",
@@ -28,8 +29,7 @@
         "mipfilter": "none",
         "premultiplyAlpha": false,
         "anisotropy": 1,
-        "isUuid": true,
-        "imageUuidOrDatabaseUri": "48ec3687-fc96-48d7-b93c-0a43ef6c080a"
+        "isUuid": true
       }
     },
     "f9941": {

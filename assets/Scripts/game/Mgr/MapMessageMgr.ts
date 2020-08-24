@@ -19,7 +19,7 @@ export class MapMessageMgr
     {
         Core.EventMgr.BindEvent(EventID.BattleEvent.CHANGE_BLOCK,this.OnChangeBlock,this);
         Core.EventMgr.BindEvent(EventID.CommodityEvent.COMMODITY_CREATE,this.OnCommodityCreate,this);
-        Core.EventMgr.BindEvent(EventID.CommodityEvent.COMMODITY_DELETE,this.OnConnodityDelete,this);
+        Core.EventMgr.BindEvent(EventID.CommodityEvent.COMMODITY_DELETE,this.OnCommodityDelete,this);
     }
 
     private OnChangeBlock(inf: BlockChange): void
@@ -32,7 +32,7 @@ export class MapMessageMgr
         this.m_stMapBlock.AddCommodity(inf);
     }
 
-    private OnConnodityDelete(inf:string):void
+    private OnCommodityDelete(inf: string): void
     {
         this.m_stMapBlock.RemoveCommodity(inf);
     }

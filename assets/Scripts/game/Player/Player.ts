@@ -44,10 +44,10 @@ export default class Player implements ITick
         if(PhysicsSystem.instance.raycastClosest(GH.CameraMgr.Ray,0xffffffff,30))
         {
             Core.EventMgr.Emit(EventID.CommodityEvent.POINT_COMMODITY,PhysicsSystem.instance.raycastClosestResult);
-            if(GH.BattleData.Etouch&&PhysicsSystem.instance.raycastClosestResult.distance<=5)
+            if(GH.BattleData.Etouch && PhysicsSystem.instance.raycastClosestResult.distance <= 5)
             {
+                let name = PhysicsSystem.instance.raycastClosestResult.collider.node.name;
                 Core.EventMgr.Emit(EventID.CommodityEvent.COMMODITY_DELETE,PhysicsSystem.instance.raycastClosestResult.collider.node.name);
-                let name=PhysicsSystem.instance.raycastClosestResult.collider.node.name;
                 Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,name);
             }
         }
@@ -56,10 +56,15 @@ export default class Player implements ITick
             Core.EventMgr.Emit(EventID.CommodityEvent.POINT_COMMODITY,null);
         }
         GH.CameraMgr.SetRay();
+        if(GH.BattleData.Itouch == true)
+        {
+            Core.EventMgr.Emit(EventID.CommodityEvent.OPEN_CLOSE_BACKPACK,null);
+        }
         /**清空操作 */
         GH.BattleData.TurnX = 0;
         GH.BattleData.TurnY = 0;
         GH.BattleData.Etouch = false;
+        GH.BattleData.Itouch = false;
     }
 
     private UpdateRedBall(result: PhysicsRayResult): void

@@ -43,6 +43,10 @@ export class Updater extends Component
                 {
                     GH.BattleData.Etouch = true;
                 }
+            case macro.KEY.i:
+                {
+                    GH.BattleData.Itouch = true;
+                }
         }
     }
 
