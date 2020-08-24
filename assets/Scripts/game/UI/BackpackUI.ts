@@ -1,4 +1,4 @@
-import {Component,Node,Prefab,Vec3,find,SpriteFrame,SpriteComponent} from 'cc';
+import {Component,Node,Prefab,Vec3,find,SpriteFrame,SpriteComponent,loader} from 'cc';
 import Core from '../../Core/Core';
 import {EventID} from '../../Core/Define';
 import ISmallBackpack from '../../interface/IBackpack';
@@ -28,6 +28,7 @@ export default class BackpackUI
             }
         }
         this.BindEvent();
+        this.ResLoad();
     }
 
     private BindEvent(): void
@@ -70,5 +71,18 @@ export default class BackpackUI
     private SetCommodityGird(id: number): void
     {
 
+    }
+
+    private ResLoad(): void
+    {
+        let arr = GH.Factory.GetAllCommodityMsg();
+        arr.forEach((element) =>
+        {
+            let url = "CommodityPrefab/" + element.name;
+            loader.loadRes(url,SpriteFrame,(error,data) =>
+            {
+                this.m_mapCommodityGridSprite.set(element.id,data);
+            });
+        })
     }
 }

@@ -129,4 +129,14 @@ export class FactoryMgr
         if(!this.m_mapComMsg.has(id)) return null;
         return this.m_mapComMsg.get(id);
     }
+
+    public GetAllCommodityMsg(): Array<CommodityMsg>
+    {
+        let arr = new Array<CommodityMsg>();
+        this.m_mapComMsg.forEach((msg) =>
+        {
+            arr.push(msg);
+        })
+        return arr;
+    }
 }
