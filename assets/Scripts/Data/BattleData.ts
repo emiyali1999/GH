@@ -12,6 +12,7 @@ export default class BattleData
     public CameraRot: number;
     public Etouch: boolean;
     public Itouch: boolean;
+    public IsBackpackOpen: boolean;
 
     constructor()
     {

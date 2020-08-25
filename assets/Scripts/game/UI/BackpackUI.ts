@@ -18,6 +18,7 @@ export default class BackpackUI
     private m_st3button: Node;
     private m_st4button: Node;
     private m_stChooseMask: Node;
+    private m_iBackpackType: number;
 
     constructor()
     {
@@ -46,6 +47,9 @@ export default class BackpackUI
                 console.log("未找到对应类型背包");
             }
         }
+        this.m_iBackpackType = 1;
+        this.OnTouchButton(1);
+        GH.BattleData.IsBackpackOpen = false;
         this.BindEvent();
     }
 
@@ -74,6 +78,12 @@ export default class BackpackUI
                 backpack = GH.PlayerData.Backpack.m_stOther;
                 break;
         }
+        for(let j = 0;j <= 3;j++)
+            for(let k = 0;k <= 53;k++)
+            {
+                this.m_arrCommodityGrid[j][k].getComponent(SpriteComponent).spriteFrame = this.m_mapCommodityGridSprite.get(0);
+                this.m_arrCommodityGrid[j][k].getChildByName("txt").getComponent(LabelComponent).string = "";
+            }
         let num: number = 0;
         let i = 1;
         backpack.m_list.ForEach(element =>
@@ -131,6 +141,14 @@ export default class BackpackUI
                 this.m_mapCommodityGridSprite.set(arr[i].id,data);
             });
         }
+        loader.loadRes(`pic/Commodity/grid_bg/spriteFrame`,SpriteFrame,(error,data: SpriteFrame) =>
+        {
+            if(error)
+            {
+                console.log(error);
+            }
+            this.m_mapCommodityGridSprite.set(0,data);
+        });
         console.log("加载成功！",this.m_prefabGrid,this.m_mapCommodityGridSprite);
     }
 
@@ -157,8 +175,24 @@ export default class BackpackUI
         {
             if(i == inf - 1)
             {
+                Core.EventMgr.Emit(EventID.CommodityEvent.CHANGE_BACKPACK,inf);
                 this.m_arrBackpack[i].active = true;
-                this.m_stChooseMask.setPosition(this.m_arrBackpack[i].position);
+                switch(inf)
+                {
+                    case 1:
+                        this.m_stChooseMask.setPosition(this.m_st1button.position);
+                        break;
+                    case 2:
+                        this.m_stChooseMask.setPosition(this.m_st2button.position);
+                        break;
+                    case 3:
+                        this.m_stChooseMask.setPosition(this.m_st3button.position);
+                        break;
+                    case 4:
+                        this.m_stChooseMask.setPosition(this.m_st4button.position);
+                        break;
+                }
+                this.m_iBackpackType = inf;
             }
             else
             {
@@ -169,10 +203,16 @@ export default class BackpackUI
 
     private OnOpenCloseBackpack(): void
     {
-        if(this.m_stBackpackNode.active == true)
+        if(GH.BattleData.IsBackpackOpen)
         {
             this.m_stBackpackNode.active = false;
+            GH.BattleData.IsBackpackOpen = false;
         }
-        else this.m_stBackpackNode.active = true;
+        else 
+        {
+            Core.EventMgr.Emit(EventID.CommodityEvent.CHANGE_BACKPACK,this.m_iBackpackType);
+            this.m_stBackpackNode.active = true;
+            GH.BattleData.IsBackpackOpen = true;
+        }
     }
 }

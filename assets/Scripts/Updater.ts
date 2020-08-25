@@ -81,7 +81,15 @@ export class Updater extends Component
 
     private OnMouseMove(event: EventMouse): void
     {
-        game.canvas.requestPointerLock();
+        if(!GH.BattleData.IsBackpackOpen)
+        {
+            game.canvas.requestPointerLock();
+        }
+        else
+        {
+            document.exitPointerLock();
+            return;
+        }
         if(event.movementX > 0)
         {
             GH.BattleData.TurnX = 1;

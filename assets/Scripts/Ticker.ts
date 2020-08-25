@@ -127,7 +127,7 @@ export default class Ticker
         {
             this.PrintTickerDetail();
         }
-        if(this.m_iTickCount == 300)
+        if(this.m_iTickCount % 300 == 0)
         {
             let c1 = new Vec3(1,3,1);
             GH.Factory.Creater(10001,c1);
@@ -138,13 +138,6 @@ export default class Ticker
             Core.EventMgr.Emit(EventID.PlayerDataEvent.VITAMIN_CHANGE,new PlayerDataChange(100,60));
             Core.EventMgr.Emit(EventID.PlayerDataEvent.CARBOHYDRATE_CHANGE,new PlayerDataChange(100,90));
             Core.EventMgr.Emit(EventID.PlayerDataEvent.BLOOD_CHANGE,new PlayerDataChange(100,66.6));
-        }
-        if(this.m_iTickCount == 600)
-        {
-            Core.EventMgr.Emit(EventID.CommodityEvent.CHANGE_BACKPACK,1);
-            Core.EventMgr.Emit(EventID.CommodityEvent.CHANGE_BACKPACK,2);
-            Core.EventMgr.Emit(EventID.CommodityEvent.CHANGE_BACKPACK,3);
-            Core.EventMgr.Emit(EventID.CommodityEvent.CHANGE_BACKPACK,4);
         }
     }
 
