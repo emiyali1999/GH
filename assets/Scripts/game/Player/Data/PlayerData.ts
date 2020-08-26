@@ -1,5 +1,5 @@
 import Backpack from "./Backpack";
-import {CommodityAttributes,EventID} from "../../../Core/Define";
+import {CommodityAttributes,EventID,PlayerDataChange} from "../../../Core/Define";
 import Core from "../../../Core/Core";
 import GH from "../../../GH";
 
@@ -31,6 +31,11 @@ export class PlayerData
     private BindEvent()
     {
         Core.EventMgr.BindEvent(EventID.CommodityEvent.GET_THINGS,this.GetThings,this);
+        Core.EventMgr.BindEvent(EventID.PlayerDataEvent.WATER_CHANGE,this.OnWaterChange,this);
+        Core.EventMgr.BindEvent(EventID.PlayerDataEvent.FAT_CHANGE,this.OnFatChange,this);
+        Core.EventMgr.BindEvent(EventID.PlayerDataEvent.VITAMIN_CHANGE,this.OnVitaminChange,this);
+        Core.EventMgr.BindEvent(EventID.PlayerDataEvent.CARBOHYDRATE_CHANGE,this.OnCarbohydrateChange,this);
+        Core.EventMgr.BindEvent(EventID.PlayerDataEvent.BLOOD_CHANGE,this.OnBloodChange,this);
     }
 
     private GetThings(inf: string): void
@@ -48,5 +53,30 @@ export class PlayerData
     public get Backpack(): Backpack
     {
         return this.m_stBackpack;
+    }
+
+    private OnWaterChange(inf: PlayerDataChange): void 
+    {
+        this.water = inf.after;
+    }
+
+    private OnFatChange(inf: PlayerDataChange): void 
+    {
+        this.fat = inf.after;
+    }
+
+    private OnVitaminChange(inf: PlayerDataChange): void 
+    {
+        this.vitamin = inf.after;
+    }
+
+    private OnCarbohydrateChange(inf: PlayerDataChange): void 
+    {
+        this.carbohydrate = inf.after;
+    }
+
+    private OnBloodChange(inf: PlayerDataChange): void 
+    {
+        this.life = inf.after;
     }
 }
