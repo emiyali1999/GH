@@ -3,12 +3,13 @@ import Core from '../../Core/Core';
 import {EventID} from '../../Core/Define';
 import ISmallBackpack from '../../interface/IBackpack';
 import GH from '../../GH';
+import {GridUI} from './GridUI';
 
 export default class BackpackUI
 {
-    private baseVec: Vec3 = new Vec3(-250,400,0);
+    private readonly baseVec: Vec3 = new Vec3(-250,400,0);
     private readonly DISTANCE: number = 100;
-    private m_arrCommodityGrid: Array<Array<Node>>;
+    private m_arrCommodityGrid: Array<Array<GridUI>>;
     private m_mapCommodityGridSprite: Map<number,SpriteFrame>;
     private m_stBackpackNode: Node;
     private m_arrBackpack: Array<Node>;
@@ -17,8 +18,9 @@ export default class BackpackUI
     private m_st2button: Node;
     private m_st3button: Node;
     private m_st4button: Node;
-    private m_stChooseMask: Node;
+    private m_stBackpackChooseMask: Node;
     private m_iBackpackType: number;
+    private m_stCommodityMask: Node;
 
     constructor()
     {
@@ -33,7 +35,8 @@ export default class BackpackUI
         this.m_st2button = find("Canvas").getChildByName("Backpack").getChildByName("button").getChildByName("2");
         this.m_st3button = find("Canvas").getChildByName("Backpack").getChildByName("button").getChildByName("3");
         this.m_st4button = find("Canvas").getChildByName("Backpack").getChildByName("button").getChildByName("4");
-        this.m_stChooseMask = find("Canvas").getChildByName("Backpack").getChildByName("button").getChildByName("mask");
+        this.m_stBackpackChooseMask = find("Canvas").getChildByName("Backpack").getChildByName("button").getChildByName("mask");
+        this.m_stCommodityMask = find("Canvas").getChildByName("Backpack").getChildByName("commodityMask");
         this.m_st1button.on(Node.EventType.TOUCH_END,this.OnTouch1Button,this);
         this.m_st2button.on(Node.EventType.TOUCH_END,this.OnTouch2Button,this);
         this.m_st3button.on(Node.EventType.TOUCH_END,this.OnTouch3Button,this);
@@ -50,6 +53,7 @@ export default class BackpackUI
         this.m_iBackpackType = 1;
         this.OnTouchButton(1);
         GH.BattleData.IsBackpackOpen = false;
+        this.m_stCommodityMask.active = false;
         this.BindEvent();
     }
 
@@ -57,6 +61,7 @@ export default class BackpackUI
     {
         Core.EventMgr.BindEvent(EventID.CommodityEvent.CHANGE_BACKPACK,this.RefreshBackpack,this);
         Core.EventMgr.BindEvent(EventID.CommodityEvent.OPEN_CLOSE_BACKPACK,this.OnOpenCloseBackpack,this);
+        Core.EventMgr.BindEvent(EventID.CommodityEvent.CLICK_BACKPACK_GRID,this.OnClickBackpackGrid,this);
         Core.EventMgr.BindEvent(EventID.LoadEvent.CSV_LOADED,this.ResLoad,this);
     }
 
@@ -81,8 +86,7 @@ export default class BackpackUI
         for(let j = 0;j <= 3;j++)
             for(let k = 0;k <= 53;k++)
             {
-                this.m_arrCommodityGrid[j][k].getComponent(SpriteComponent).spriteFrame = this.m_mapCommodityGridSprite.get(0);
-                this.m_arrCommodityGrid[j][k].getChildByName("txt").getComponent(LabelComponent).string = "";
+                this.m_arrCommodityGrid[j][k].ResetGird(this.m_mapCommodityGridSprite.get(0));
             }
         let num: number = 0;
         let i = 1;
@@ -97,9 +101,7 @@ export default class BackpackUI
             {
                 console.log("加载图片资源失败");
             }
-            console.log(this.m_arrCommodityGrid[i - 1][num].getComponent(SpriteComponent).spriteFrame,this.m_mapCommodityGridSprite.get(element.id));
-            this.m_arrCommodityGrid[i - 1][num].getComponent(SpriteComponent).spriteFrame = this.m_mapCommodityGridSprite.get(element.id);
-            this.m_arrCommodityGrid[i - 1][num].getChildByName("txt").getComponent(LabelComponent).string = element.number.toString();
+            this.m_arrCommodityGrid[i - 1][num].SetGird(this.m_mapCommodityGridSprite.get(element.id),element);
             num++;
         });
     }
@@ -113,9 +115,9 @@ export default class BackpackUI
                 for(let k = 0;k <= 8;k++)
                 {
                     let gird = instantiate(this.m_prefabGrid);
-                    gird.setPosition(new Vec3(this.baseVec.x + this.DISTANCE * j,this.baseVec.y - this.DISTANCE * k,0));
+                    gird.setPosition(this.GetV3ByXY(j,k));
                     backpackNode.addChild(gird);
-                    this.m_arrCommodityGrid[i][j + k * 6] = gird;
+                    this.m_arrCommodityGrid[i][j + k * 6] = new GridUI(i,j + k * 6,gird);
                 }
         }
     }
@@ -171,6 +173,7 @@ export default class BackpackUI
 
     private OnTouchButton(inf: number): void
     {
+        this.m_stCommodityMask.active = false;
         for(let i = 0;i < this.m_arrBackpack.length;i++)
         {
             if(i == inf - 1)
@@ -180,16 +183,16 @@ export default class BackpackUI
                 switch(inf)
                 {
                     case 1:
-                        this.m_stChooseMask.setPosition(this.m_st1button.position);
+                        this.m_stBackpackChooseMask.setPosition(this.m_st1button.position);
                         break;
                     case 2:
-                        this.m_stChooseMask.setPosition(this.m_st2button.position);
+                        this.m_stBackpackChooseMask.setPosition(this.m_st2button.position);
                         break;
                     case 3:
-                        this.m_stChooseMask.setPosition(this.m_st3button.position);
+                        this.m_stBackpackChooseMask.setPosition(this.m_st3button.position);
                         break;
                     case 4:
-                        this.m_stChooseMask.setPosition(this.m_st4button.position);
+                        this.m_stBackpackChooseMask.setPosition(this.m_st4button.position);
                         break;
                 }
                 this.m_iBackpackType = inf;
@@ -207,6 +210,7 @@ export default class BackpackUI
         {
             this.m_stBackpackNode.active = false;
             GH.BattleData.IsBackpackOpen = false;
+            this.m_stCommodityMask.active = false;
         }
         else 
         {
@@ -214,5 +218,21 @@ export default class BackpackUI
             this.m_stBackpackNode.active = true;
             GH.BattleData.IsBackpackOpen = true;
         }
+    }
+
+    private OnClickBackpackGrid(inf: number): void
+    {
+        let x = inf % 6;
+        let y = Math.floor(inf / 6);
+        let v3 = this.GetV3ByXY(x,y);
+        this.m_stCommodityMask.setPosition(new Vec3(600 + v3.x,v3.y,v3.z));
+        this.m_stCommodityMask.active = true;
+        console.log(this.m_stCommodityMask.position);
+    }
+
+    private GetV3ByXY(x: number,y: number): Vec3
+    {
+        let v3 = new Vec3(this.baseVec.x + this.DISTANCE * x,this.baseVec.y - this.DISTANCE * y,0);
+        return v3;
     }
 }

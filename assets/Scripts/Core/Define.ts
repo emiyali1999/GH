@@ -29,6 +29,8 @@ export class EventID
         CHANGE_BACKPACK: EventID.CreateID,
         /**打开关闭背包 */
         OPEN_CLOSE_BACKPACK: EventID.CreateID,
+        /**点击背包物品格 */
+        CLICK_BACKPACK_GRID: EventID.CreateID,
     }
 
     /**人物属性变化 */
