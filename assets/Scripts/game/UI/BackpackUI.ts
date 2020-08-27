@@ -21,6 +21,7 @@ export default class BackpackUI
     private m_stBackpackChooseMask: Node;
     private m_iBackpackType: number;
     private m_stCommodityMask: Node;
+    private m_stCommodityChooseBtn1: Node;
 
     constructor()
     {
@@ -37,6 +38,7 @@ export default class BackpackUI
         this.m_st4button = find("Canvas").getChildByName("Backpack").getChildByName("button").getChildByName("4");
         this.m_stBackpackChooseMask = find("Canvas").getChildByName("Backpack").getChildByName("button").getChildByName("mask");
         this.m_stCommodityMask = find("Canvas").getChildByName("Backpack").getChildByName("commodityMask");
+        this.m_stCommodityChooseBtn1 = find("Canvas").getChildByName("Backpack").getChildByName("commodityMask").getChildByName("use");
         this.m_st1button.on(Node.EventType.TOUCH_END,this.OnTouch1Button,this);
         this.m_st2button.on(Node.EventType.TOUCH_END,this.OnTouch2Button,this);
         this.m_st3button.on(Node.EventType.TOUCH_END,this.OnTouch3Button,this);
@@ -54,6 +56,7 @@ export default class BackpackUI
         this.OnTouchButton(1);
         GH.BattleData.IsBackpackOpen = false;
         this.m_stCommodityMask.active = false;
+        this.m_stCommodityChooseBtn1.on(Node.EventType.TOUCH_END,this.OnCommodityChooseBtn1Click,this);
         this.BindEvent();
     }
 
@@ -234,5 +237,10 @@ export default class BackpackUI
     {
         let v3 = new Vec3(this.baseVec.x + this.DISTANCE * x,this.baseVec.y - this.DISTANCE * y,0);
         return v3;
+    }
+
+    private OnCommodityChooseBtn1Click()
+    {
+
     }
 }
