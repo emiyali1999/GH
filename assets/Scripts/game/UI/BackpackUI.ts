@@ -22,6 +22,7 @@ export default class BackpackUI
     private m_iBackpackType: number;
     private m_stCommodityMask: Node;
     private m_stCommodityChooseBtn1: Node;
+    private m_stChooseCommodity: number = -1;
 
     constructor()
     {
@@ -230,7 +231,7 @@ export default class BackpackUI
         let v3 = this.GetV3ByXY(x,y);
         this.m_stCommodityMask.setPosition(new Vec3(600 + v3.x,v3.y,v3.z));
         this.m_stCommodityMask.active = true;
-        console.log(this.m_stCommodityMask.position);
+        this.m_stChooseCommodity = inf;
     }
 
     private GetV3ByXY(x: number,y: number): Vec3
@@ -241,6 +242,7 @@ export default class BackpackUI
 
     private OnCommodityChooseBtn1Click()
     {
-
+        let msg = this.m_arrCommodityGrid[this.m_iBackpackType][this.m_stChooseCommodity].GetGirdMessage();
+        Core.EventMgr.Emit(EventID.CommodityEvent.USE_COMMODITY,msg);
     }
 }

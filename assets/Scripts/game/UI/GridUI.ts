@@ -43,4 +43,9 @@ export class GridUI
         if(!this.m_stGridMessage) return;
         Core.EventMgr.Emit(EventID.CommodityEvent.CLICK_BACKPACK_GRID,this.m_iNum);
     }
+
+    public GetGirdMessage(): CommodityAttributes
+    {
+        return this.m_stGridMessage;
+    }
 }

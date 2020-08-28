@@ -31,6 +31,8 @@ export class EventID
         OPEN_CLOSE_BACKPACK: EventID.CreateID,
         /**点击背包物品格 */
         CLICK_BACKPACK_GRID: EventID.CreateID,
+        /**使用物品 */
+        USE_COMMODITY: EventID.CreateID,
     }
 
     /**人物属性变化 */
