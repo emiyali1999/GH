@@ -47,7 +47,7 @@ export default class Player implements ITick
             if(GH.BattleData.Etouch && PhysicsSystem.instance.raycastClosestResult.distance <= 5)
             {
                 let name = PhysicsSystem.instance.raycastClosestResult.collider.node.name;
-                Core.EventMgr.Emit(EventID.CommodityEvent.COMMODITY_DELETE,PhysicsSystem.instance.raycastClosestResult.collider.node.name);
+                Core.EventMgr.Emit(EventID.CommodityEvent.MAP_COMMODITY_DELETE,PhysicsSystem.instance.raycastClosestResult.collider.node.name);
                 Core.EventMgr.Emit(EventID.CommodityEvent.GET_THINGS,name);
             }
         }

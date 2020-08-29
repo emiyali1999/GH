@@ -1,6 +1,6 @@
 import {LinkList} from "../../../util/LinkList";
 import {CommodityAttributes} from "../../../Core/Define"
-import ISmallBackpack from "../../../interface/IBackpack"
+import ISmallBackpack,{SmallBackpack} from "../../../interface/IBackpack"
 import Core from "../../../Core/Core";
 import {CoreEventID} from "../../../Core/CoreEventID";
 
@@ -55,123 +55,35 @@ export default class Backpack
     }
 }
 
-class Consumables implements ISmallBackpack
+class Consumables extends SmallBackpack
 {
-    public m_list: LinkList<CommodityAttributes>;
     constructor()
     {
-        this.m_list = new LinkList<CommodityAttributes>();
-    }
-
-    public addThing(thing: CommodityAttributes)
-    {
-        let target: CommodityAttributes = null;
-        this.m_list.ForEach((value) =>
-        {
-            if(thing.id == value.id)
-            {
-                target = value;
-            }
-        });
-        if(!target)
-        {
-            this.m_list.Append(thing);
-        }
-        else
-        {
-            let newthing = new CommodityAttributes(target.id,target.type,target.number + thing.number);
-            this.m_list.Change(target,newthing);
-        }
+        super();
     }
 }
 
-class Equipment implements ISmallBackpack
+class Equipment extends SmallBackpack
 {
-    public m_list: LinkList<CommodityAttributes>;
     constructor()
     {
-        this.m_list = new LinkList();
-    }
-
-    public addThing(thing: CommodityAttributes)
-    {
-        let target: CommodityAttributes = null;
-        this.m_list.ForEach((value) =>
-        {
-            if(thing.id == value.id)
-            {
-                target = value;
-            }
-        });
-        if(!target)
-        {
-            this.m_list.Append(thing);
-        }
-        else
-        {
-            let newthing = new CommodityAttributes(target.id,target.type,target.number + thing.number);
-            this.m_list.Change(target,newthing);
-        }
+        super();
     }
 }
 
-class Materials implements ISmallBackpack
+class Materials extends SmallBackpack
 {
-    public m_list: LinkList<CommodityAttributes>;
     constructor()
     {
-        this.m_list = new LinkList();
-    }
-
-    public addThing(thing: CommodityAttributes)
-    {
-        let target: CommodityAttributes = null;
-        this.m_list.ForEach((value) =>
-        {
-            if(thing.id == value.id)
-            {
-                target = value;
-            }
-        });
-        if(!target)
-        {
-            this.m_list.Append(thing);
-        }
-        else
-        {
-            let newthing = new CommodityAttributes(target.id,target.type,target.number + thing.number);
-            this.m_list.Change(target,newthing);
-        }
+        super();
     }
 }
 
-class Other implements ISmallBackpack
+class Other extends SmallBackpack
 {
-    public m_list: LinkList<CommodityAttributes>;
     constructor()
     {
-        this.m_list = new LinkList();
-    }
-
-    public addThing(thing: CommodityAttributes)
-    {
-        let target: CommodityAttributes = null;
-        this.m_list.ForEach((value) =>
-        {
-            if(thing.id == value.id)
-            {
-                target = value;
-            }
-        });
-        if(!target)
-        {
-            this.m_list.Append(thing);
-        }
-        else
-        {
-            let newthing = new CommodityAttributes(target.id,target.type,target.number + thing.number);
-            this.m_list.Change(target,newthing);
-        }
+        super();
     }
 }
 

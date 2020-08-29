@@ -54,7 +54,6 @@ export default class BackpackUI
             }
         }
         this.m_iBackpackType = 1;
-        this.OnTouchButton(1);
         GH.BattleData.IsBackpackOpen = false;
         this.m_stCommodityMask.active = false;
         this.m_stCommodityChooseBtn1.on(Node.EventType.TOUCH_END,this.OnCommodityChooseBtn1Click,this);
@@ -69,8 +68,12 @@ export default class BackpackUI
         Core.EventMgr.BindEvent(EventID.LoadEvent.CSV_LOADED,this.ResLoad,this);
     }
 
-    private RefreshBackpack(inf: number): void
+    private RefreshBackpack(inf?: number): void
     {
+        if(!inf)
+        {
+            inf = this.m_iBackpackType;
+        }
         let backpack: ISmallBackpack;
         switch(inf)
         {
@@ -87,11 +90,10 @@ export default class BackpackUI
                 backpack = GH.PlayerData.Backpack.m_stOther;
                 break;
         }
-        for(let j = 0;j <= 3;j++)
-            for(let k = 0;k <= 53;k++)
-            {
-                this.m_arrCommodityGrid[j][k].ResetGird(this.m_mapCommodityGridSprite.get(0));
-            }
+        for(let k = 0;k <= 53;k++)
+        {
+            this.m_arrCommodityGrid[this.m_iBackpackType][k].ResetGird(this.m_mapCommodityGridSprite.get(0));
+        }
         let num: number = 0;
         let i = 1;
         backpack.m_list.ForEach(element =>
@@ -133,6 +135,7 @@ export default class BackpackUI
         {
             this.m_prefabGrid = data;
             this.SetCommodityGird();
+            this.OnTouchButton(1);
         });
         let arr = GH.Factory.GetAllCommodityMsg();
         for(let i = 0;i < arr.length;i++)
@@ -178,11 +181,12 @@ export default class BackpackUI
     private OnTouchButton(inf: number): void
     {
         this.m_stCommodityMask.active = false;
+        this.m_iBackpackType = inf;
         for(let i = 0;i < this.m_arrBackpack.length;i++)
         {
             if(i == inf - 1)
             {
-                Core.EventMgr.Emit(EventID.CommodityEvent.CHANGE_BACKPACK,inf);
+                this.RefreshBackpack(inf);
                 this.m_arrBackpack[i].active = true;
                 switch(inf)
                 {
@@ -199,7 +203,6 @@ export default class BackpackUI
                         this.m_stBackpackChooseMask.setPosition(this.m_st4button.position);
                         break;
                 }
-                this.m_iBackpackType = inf;
             }
             else
             {
@@ -218,7 +221,7 @@ export default class BackpackUI
         }
         else 
         {
-            Core.EventMgr.Emit(EventID.CommodityEvent.CHANGE_BACKPACK,this.m_iBackpackType);
+            this.RefreshBackpack(this.m_iBackpackType);
             this.m_stBackpackNode.active = true;
             GH.BattleData.IsBackpackOpen = true;
         }
@@ -242,7 +245,7 @@ export default class BackpackUI
 
     private OnCommodityChooseBtn1Click()
     {
-        let msg = this.m_arrCommodityGrid[this.m_iBackpackType][this.m_stChooseCommodity].GetGirdMessage();
+        let msg = this.m_arrCommodityGrid[this.m_iBackpackType - 1][this.m_stChooseCommodity].GetGirdMessage();
         Core.EventMgr.Emit(EventID.CommodityEvent.USE_COMMODITY,msg);
     }
 }

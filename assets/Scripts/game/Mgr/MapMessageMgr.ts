@@ -18,8 +18,8 @@ export class MapMessageMgr
     private BindEvent(): void
     {
         Core.EventMgr.BindEvent(EventID.BattleEvent.CHANGE_BLOCK,this.OnChangeBlock,this);
-        Core.EventMgr.BindEvent(EventID.CommodityEvent.COMMODITY_CREATE,this.OnCommodityCreate,this);
-        Core.EventMgr.BindEvent(EventID.CommodityEvent.COMMODITY_DELETE,this.OnCommodityDelete,this);
+        Core.EventMgr.BindEvent(EventID.CommodityEvent.MAP_COMMODITY_CREATE,this.OnCommodityCreate,this);
+        Core.EventMgr.BindEvent(EventID.CommodityEvent.MAP_COMMODITY_DELETE,this.OnCommodityDelete,this);
     }
 
     private OnChangeBlock(inf: BlockChange): void
