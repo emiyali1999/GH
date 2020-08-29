@@ -31,6 +31,7 @@ export class PlayerData
     private BindEvent()
     {
         Core.EventMgr.BindEvent(EventID.CommodityEvent.GET_THINGS,this.GetThings,this);
+        Core.EventMgr.BindEvent(EventID.CommodityEvent.GOT_COMMODITY_DELETE,this.DeleteThings,this);
         Core.EventMgr.BindEvent(EventID.PlayerDataEvent.WATER_CHANGE,this.OnWaterChange,this);
         Core.EventMgr.BindEvent(EventID.PlayerDataEvent.FAT_CHANGE,this.OnFatChange,this);
         Core.EventMgr.BindEvent(EventID.PlayerDataEvent.VITAMIN_CHANGE,this.OnVitaminChange,this);
@@ -48,6 +49,12 @@ export class PlayerData
         }
         let abt: CommodityAttributes = new CommodityAttributes(msg.id,msg.type,1);
         this.m_stBackpack.GetThing(abt);
+    }
+
+    private DeleteThings(inf: CommodityAttributes): void
+    {
+        if(!inf) return;
+        this.m_stBackpack.UseThing(inf);
     }
 
     public get Backpack(): Backpack

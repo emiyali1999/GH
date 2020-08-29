@@ -1,5 +1,5 @@
 import {LinkList} from "../../../util/LinkList";
-import {CommodityAttributes} from "../../../Core/Define"
+import {CommodityAttributes,EventID} from "../../../Core/Define"
 import ISmallBackpack,{SmallBackpack} from "../../../interface/IBackpack"
 import Core from "../../../Core/Core";
 import {CoreEventID} from "../../../Core/CoreEventID";
@@ -45,7 +45,28 @@ export default class Backpack
             default:
                 console.log("物品类型错误!!!");
         }
-        this.PrintBackpack();
+    }
+
+    public UseThing(thing: CommodityAttributes): void
+    {
+        if(!thing) return;
+        switch(thing.type)
+        {
+            case CommodityType.Consumables:
+                this.m_stConsumables.deleteThing(thing);
+                break;
+            case CommodityType.Equipment:
+                this.m_stEquipment.deleteThing(thing);
+                break;
+            case CommodityType.Materials:
+                this.m_stMaterials.deleteThing(thing);
+                break;
+            case CommodityType.Other:
+                this.m_stOther.deleteThing(thing);
+                break;
+            default:
+                console.log("物品类型错误!!!");
+        }
     }
 
     private PrintBackpack(): void

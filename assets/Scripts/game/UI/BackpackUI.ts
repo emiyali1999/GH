@@ -92,7 +92,7 @@ export default class BackpackUI
         }
         for(let k = 0;k <= 53;k++)
         {
-            this.m_arrCommodityGrid[this.m_iBackpackType][k].ResetGird(this.m_mapCommodityGridSprite.get(0));
+            this.m_arrCommodityGrid[this.m_iBackpackType - 1][k].ResetGird(this.m_mapCommodityGridSprite.get(0));
         }
         let num: number = 0;
         let i = 1;
@@ -246,6 +246,6 @@ export default class BackpackUI
     private OnCommodityChooseBtn1Click()
     {
         let msg = this.m_arrCommodityGrid[this.m_iBackpackType - 1][this.m_stChooseCommodity].GetGirdMessage();
-        Core.EventMgr.Emit(EventID.CommodityEvent.USE_COMMODITY,msg);
+        Core.EventMgr.Emit(EventID.CommodityEvent.BACKPACK_CLICK_USE_COMMODITY,msg);
     }
 }

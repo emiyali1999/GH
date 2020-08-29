@@ -14,7 +14,7 @@ export default class ApplicationMgr
 
     private BindEvent(): void
     {
-        Core.EventMgr.BindEvent(EventID.CommodityEvent.USE_COMMODITY,this.CommodityUse,this);
+        Core.EventMgr.BindEvent(EventID.CommodityEvent.BACKPACK_CLICK_USE_COMMODITY,this.CommodityUse,this);
     }
 
     private CommodityUse(inf: CommodityAttributes): void
@@ -29,6 +29,7 @@ export default class ApplicationMgr
                         Core.EventMgr.Emit(EventID.PlayerDataEvent.CARBOHYDRATE_CHANGE,change);
                         change = new PlayerDataChange(GH.PlayerData.water,GH.PlayerData.water + 1);
                         Core.EventMgr.Emit(EventID.PlayerDataEvent.WATER_CHANGE,change);
+                        Core.EventMgr.Emit(EventID.CommodityEvent.GOT_COMMODITY_DELETE,inf);
                         break;
                 }
                 break;
