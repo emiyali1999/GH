@@ -29,7 +29,8 @@ export default class ApplicationMgr
                         Core.EventMgr.Emit(EventID.PlayerDataEvent.CARBOHYDRATE_CHANGE,change);
                         change = new PlayerDataChange(GH.PlayerData.water,GH.PlayerData.water + 1);
                         Core.EventMgr.Emit(EventID.PlayerDataEvent.WATER_CHANGE,change);
-                        Core.EventMgr.Emit(EventID.CommodityEvent.GOT_COMMODITY_DELETE,inf);
+                        let commodity = new CommodityAttributes(inf.id,inf.type,1);
+                        Core.EventMgr.Emit(EventID.CommodityEvent.GOT_COMMODITY_DELETE,commodity);
                         break;
                 }
                 break;
