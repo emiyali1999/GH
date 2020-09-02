@@ -133,11 +133,6 @@ export default class Ticker
             GH.Factory.Creater(10001,c1);
             c1 = new Vec3(1,3,-1);
             GH.Factory.Creater(30001,c1);
-            Core.EventMgr.Emit(EventID.PlayerDataEvent.WATER_CHANGE,new PlayerDataChange(100,80));
-            Core.EventMgr.Emit(EventID.PlayerDataEvent.FAT_CHANGE,new PlayerDataChange(100,70));
-            Core.EventMgr.Emit(EventID.PlayerDataEvent.VITAMIN_CHANGE,new PlayerDataChange(100,60));
-            Core.EventMgr.Emit(EventID.PlayerDataEvent.CARBOHYDRATE_CHANGE,new PlayerDataChange(100,90));
-            Core.EventMgr.Emit(EventID.PlayerDataEvent.BLOOD_CHANGE,new PlayerDataChange(100,66.6));
         }
     }
 
